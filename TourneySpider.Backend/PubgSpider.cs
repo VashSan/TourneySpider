@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Pubg.Net;
 
 namespace TourneySpider.Backend
@@ -12,22 +13,27 @@ namespace TourneySpider.Backend
 			myOptions = options;
 		}
 
-		public void FetchAndWriteResult()
+		public bool WasRegionReset { get; private set; }
+
+		public IEnumerable<PlayerResult> GetResult()
 		{
 			PubgRegion region = GetPubgRegion();
 
 			var matchService = new PubgMatchService();
 			PubgMatch match = matchService.GetMatch( region, myOptions.MatchId );
 
-			Console.WriteLine( $"Player\tRank\tKills" );
-
+			
+			var result = new List<PlayerResult>();
 			foreach ( PubgRoster roster in match.Rosters )
 			{
 				foreach ( PubgParticipant participant in roster.Participants )
 				{
-					Console.WriteLine( $"{participant.Stats.Name}\t{roster.Stats.Rank}\t{participant.Stats.Kills}" );
+					var player = new PlayerResult( participant.Stats.Name, roster.Stats.Rank, participant.Stats.Kills);
+					result.Add( player );
 				}
 			}
+
+			return result;
 		}
 
 		private PubgRegion GetPubgRegion()
@@ -39,18 +45,11 @@ namespace TourneySpider.Backend
 			}
 
 			PubgRegion defaultRegion = PubgRegion.PCEurope;
-			string warning = $"Defaulting platform and region to {defaultRegion}.";
-			ConsoleWriteWarning( warning );
+			myOptions.Region = "Europe";
+			myOptions.Platform = "PC";
 
+			WasRegionReset = true;
 			return defaultRegion;
-		}
-
-		private static void ConsoleWriteWarning( string warning )
-		{
-			var color = Console.ForegroundColor;
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.Error.WriteLine( warning );
-			Console.ForegroundColor = color;
 		}
 	}
 }

@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Options.cs" />
+    <Compile Include="PlayerResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PubgSpider.cs" />
   </ItemGroup>
