@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("TourneySpider.Backend")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Access to game APIs.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TourneySpider.Backend")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyProduct("TourneySpider")]
+[assembly: AssemblyCopyright("Copyright © 2018 Alexander Schwoch")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
