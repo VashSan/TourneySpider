@@ -1,5 +1,6 @@
 ﻿using System;
 using CommandLine;
+using TourneySpider.Backend;
 
 namespace TourneySpider
 {
@@ -14,7 +15,7 @@ namespace TourneySpider
 
 		private static void HandleSuccess( Options o )
 		{
-			var ts = new TourneySpider( o );
+			var ts = new PubgSpider( o );
 			ts.FetchAndWriteResult();
 		}
 	}

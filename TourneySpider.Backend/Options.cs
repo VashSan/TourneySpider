@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace TourneySpider
+namespace TourneySpider.Backend
 {
 	public class Options
 	{

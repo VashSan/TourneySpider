@@ -1,13 +1,13 @@
 ﻿using System;
 using Pubg.Net;
 
-namespace TourneySpider
+namespace TourneySpider.Backend
 {
-	public class TourneySpider
+	public class PubgSpider
 	{
 		private readonly Options myOptions;
 
-		public TourneySpider( Options options )
+		public PubgSpider( Options options )
 		{
 			myOptions = options;
 		}
