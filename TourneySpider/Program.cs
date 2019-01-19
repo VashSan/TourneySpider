@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CommandLine;
 using TourneySpider.Backend;
 
@@ -11,6 +13,27 @@ namespace TourneySpider
 			var parser = new Parser( p => p.HelpWriter = Console.Out );
 			var result = parser.ParseArguments<Options>( args );
 			result.WithParsed( HandleSuccess );
+			result.WithNotParsed( HandleInvalid );
+		}
+
+		private static void HandleInvalid( IEnumerable<Error> obj )
+		{
+			var finder = new ReplayFinder();
+			var replays = finder.GetReplays();
+
+			var lastReplay = replays.LastOrDefault();
+			if ( lastReplay == null )
+			{
+				return;
+			}
+
+			ConsoleWriteWarning( "I use the last replay found in local app data" );
+			var options = new Options()
+			{
+				MatchId = lastReplay.Id.ToString(),
+				Platform = lastReplay.Platform
+			};
+			HandleSuccess( options );
 		}
 
 		private static void HandleSuccess( Options o )
@@ -23,7 +46,7 @@ namespace TourneySpider
 			{
 				Console.WriteLine( $"{playerResult.Name}\t{playerResult.Rank}\t{playerResult.Kills}" );
 			}
-
+			
 			if ( ps.WasRegionReset )
 			{
 				string warning = $"Defaulting platform and region reset to {o.Platform}{o.Region}.";
