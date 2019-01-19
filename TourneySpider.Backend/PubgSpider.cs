@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using Pubg.Net;
 using Pubg.Net.Exceptions;
@@ -9,14 +8,14 @@ namespace TourneySpider.Backend
 {
 	public class PubgSpider
 	{
-		private readonly Options myOptions;
+		private readonly IOptions myOptions;
 
-		public PubgSpider( Options options )
+		public PubgSpider( IOptions options )
 		{
 			myOptions = options;
 		}
 
-		public bool WasRegionReset { get; private set; }
+		public bool WasPlatformReset { get; private set; }
 
 		public IEnumerable<PlayerResult> GetResult()
 		{
@@ -70,22 +69,6 @@ namespace TourneySpider.Backend
 			return match;
 		}
 
-		private PubgRegion GetPubgRegion()
-		{
-			string s = myOptions.Platform + myOptions.Region;
-			if ( Enum.TryParse( s, true, out PubgRegion region ) )
-			{
-				return region;
-			}
-
-			PubgRegion defaultRegion = PubgRegion.PCEurope;
-			myOptions.Region = "Europe";
-			myOptions.Platform = "PC";
-
-			WasRegionReset = true;
-			return defaultRegion;
-		}
-
 		private PubgPlatform GetPubgPlatform()
 		{
 			string s = myOptions.Platform;
@@ -97,7 +80,5 @@ namespace TourneySpider.Backend
 			WasPlatformReset = true;
 			return PubgPlatform.Steam;
 		}
-
-		public bool WasPlatformReset { get; private set; }
 	}
 }

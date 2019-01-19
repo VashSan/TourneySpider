@@ -47,9 +47,9 @@ namespace TourneySpider
 				Console.WriteLine( $"{playerResult.Name}\t{playerResult.Rank}\t{playerResult.Kills}" );
 			}
 			
-			if ( ps.WasRegionReset )
+			if ( ps.WasPlatformReset )
 			{
-				string warning = $"Defaulting platform and region reset to {o.Platform}{o.Region}.";
+				string warning = $"Defaulting platform reset to {o.Platform}.";
 				ConsoleWriteWarning( warning );
 			}
 		}
