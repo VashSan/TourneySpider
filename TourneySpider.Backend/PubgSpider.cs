@@ -53,7 +53,7 @@ namespace TourneySpider.Backend
 			{
 				match = matchService.GetMatch( platform, myOptions.MatchId );
 			}
-			catch ( PubgNotFoundException e ) when ( e.HttpStatusCode == HttpStatusCode.NotFound )
+			catch ( PubgNotFoundException ) //when ( e.HttpStatusCode == HttpStatusCode.NotFound )
 			{
 				// Errorcode not set, we wont parse strings though!
 				Console.WriteLine( $"Can not find match. (Id = {myOptions.MatchId})" );

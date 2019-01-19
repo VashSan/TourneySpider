@@ -38,20 +38,33 @@ namespace TourneySpider
 
 		private static void HandleSuccess( Options o )
 		{
-			var ps = new PubgSpider( o );
-
-			Console.WriteLine( $"Player\tRank\tKills" );
-
-			foreach ( var playerResult in ps.GetResult() )
+			if ( o.List )
 			{
-				Console.WriteLine( $"{playerResult.Name}\t{playerResult.Rank}\t{playerResult.Kills}" );
+				var finder = new ReplayFinder();
+				var replays = finder.GetReplays();
+				foreach ( Replay item in replays )
+				{
+					Console.WriteLine( $"{item.Date:yyyy-MM-dd}\t{item.Mode}\t{item.Region}\t{item.Platform}\t{item.Id}" );
+				}
+			}
+			else
+			{
+				var ps = new PubgSpider( o );
+
+				Console.WriteLine( $"Player\tRank\tKills" );
+
+				foreach ( var playerResult in ps.GetResult() )
+				{
+					Console.WriteLine( $"{playerResult.Name}\t{playerResult.Rank}\t{playerResult.Kills}" );
+				}
+
+				if ( ps.WasPlatformReset )
+				{
+					string warning = $"Defaulting platform reset to {o.Platform}.";
+					ConsoleWriteWarning( warning );
+				}
 			}
 			
-			if ( ps.WasPlatformReset )
-			{
-				string warning = $"Defaulting platform reset to {o.Platform}.";
-				ConsoleWriteWarning( warning );
-			}
 		}
 
 		private static void ConsoleWriteWarning( string warning )
