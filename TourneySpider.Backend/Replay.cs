@@ -10,13 +10,13 @@ namespace TourneySpider.Backend
 
 			string type = parts[ 2 ]; // "official", "custom", ... ?
 
-			string version = parts[ 3 ]; // "2018-05"
+			string version = parts[ 3 ]; // Guid
 
-			string client = parts[ 4 ];
+			string platform = parts[ 4 ]; // "steam", ...
 			string gameMode = parts[ 5 ]; // "solo", "solo-fpp"
 			string region = parts[ 6 ]; // "eu", ...
 
-			int year = Convert.ToInt32( parts[ 7 ] ); // TODO what if starting with 4 instead 2?
+			int year = Convert.ToInt32( parts[ 7 ] );
 			int month = Convert.ToInt32( parts[ 8 ] );
 			int day = Convert.ToInt32( parts[ 9 ] ); 
 			var date = new DateTime(year, month, day);
@@ -27,7 +27,7 @@ namespace TourneySpider.Backend
 			return new Replay()
 			{
 				FolderName = directory,
-				Client = client,
+				Platform = platform,
 				Type = type,
 				Version = version,
 				Region = region,
@@ -38,7 +38,7 @@ namespace TourneySpider.Backend
 			};
 		}
 
-		public string Client { get; set; }
+		public string Platform { get; set; }
 
 		public string FolderName { get; set; }
 
