@@ -12,20 +12,22 @@ namespace TourneySpider.Backend
 
 			string version = parts[ 3 ]; // "2018-05"
 
-			string region = parts[ 4 ]; // "eu", ...
+			string client = parts[ 4 ];
 			string gameMode = parts[ 5 ]; // "solo", "solo-fpp"
+			string region = parts[ 6 ]; // "eu", ...
 
-			int year = Convert.ToInt32( parts[ 6 ] ); // TODO what if starting with 4 instead 2?
-			int month = Convert.ToInt32( parts[ 7 ] );
-			int day = Convert.ToInt32( parts[ 8 ] ); 
+			int year = Convert.ToInt32( parts[ 7 ] ); // TODO what if starting with 4 instead 2?
+			int month = Convert.ToInt32( parts[ 8 ] );
+			int day = Convert.ToInt32( parts[ 9 ] ); 
 			var date = new DateTime(year, month, day);
 
-			string id = parts[ 9 ].Substring( 0, 36 );
+			string id = parts[ 11 ].Substring( 0, 36 );
 			var guid = Guid.Parse( id );
 
 			return new Replay()
 			{
 				FolderName = directory,
+				Client = client,
 				Type = type,
 				Version = version,
 				Region = region,
@@ -35,6 +37,8 @@ namespace TourneySpider.Backend
 
 			};
 		}
+
+		public string Client { get; set; }
 
 		public string FolderName { get; set; }
 
